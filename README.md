@@ -7,9 +7,16 @@ st.title("🧠 AI Idea Validator")
 
 idea = st.text_input("Enter your project idea:")
 
-if st.button("Validate"):
-    response = openai.ChatCompletion.create(
-        model="gpt-4-turbo",
-        messages=[{"role":"user","content":f"Is '{idea}' a good business idea?"}]
-    )
+if st.button("Validate"):from openai import OpenAI
+
+client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
+
+response = client.chat.completions.create(
+    model="gpt-3.5-turbo",
+    messages=[
+        {"role": "user", "content": f"Evaluate this idea: {idea}"}
+    ]
+)
+
+st.write(response.choices[0].message.content)
     st.write(response.choices[0].message.content.strip())

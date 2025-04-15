@@ -1,2 +1,2 @@
-
-Add main Streamlit app
+import streamlit as st
+import openai
